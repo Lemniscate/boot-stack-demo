@@ -1,5 +1,6 @@
 package com.github.lemniscate.stack.boot;
 
+import com.github.lemniscate.lib.sra.annotation.EnableApiResources;
 import com.github.lemniscate.stack.boot.config.TomcatConfig;
 import org.springframework.boot.actuate.autoconfigure.ErrorMvcAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -27,6 +28,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAsync
 @EnableScheduling
 @EnableEntityLinks
+@EnableApiResources
 @EnableAspectJAutoProxy
 @EnableJpaRepositories// (repositoryFactoryBeanClass = CustomRepositoryFactoryBean.class)
 @EnableTransactionManagement
