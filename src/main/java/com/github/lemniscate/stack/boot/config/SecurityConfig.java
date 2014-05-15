@@ -56,6 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // don't add ROLE_ to the role...
         http.authorizeRequests()
                 .antMatchers("/app/**").hasRole("DEFAULT");
+
+        http.csrf().disable();
     }
 
     @Bean

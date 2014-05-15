@@ -62,17 +62,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <!-- Forked SpringData commons, for Spring-Rest-Api-->
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
-            <version>1.8.0.FORK-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>1.6.0.BUILD-SNAPSHOT</version>
-        </dependency>
 
         <!-- Hateoas -->
         <dependency>
@@ -108,7 +97,12 @@
         <dependency>
             <groupId>com.github.lemniscate.lib</groupId>
             <artifactId>spring-rest-api</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>0.1.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>1.0.2.RELEASE</version>
         </dependency>
 
         <!-- AOP -->
@@ -138,6 +132,11 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.core</artifactId>
+            <version>3.1.0.CR10</version>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>

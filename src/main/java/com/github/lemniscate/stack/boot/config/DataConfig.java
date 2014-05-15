@@ -54,6 +54,7 @@ public class DataConfig {
     private Properties getJpaProperties() {
         Properties props = new Properties();
         props.put("hibernate.ejb.naming_strategy", ImprovedNamingStrategy.class.getName());
+        props.put("jadira.usertype.autoRegisterUserTypes", "true");
         return props;
     }
 

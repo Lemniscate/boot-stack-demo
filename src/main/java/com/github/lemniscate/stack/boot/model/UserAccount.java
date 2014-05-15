@@ -11,10 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -44,6 +41,21 @@ public class UserAccount implements UserDetails, Identifiable<Long>{
 
     private String firstName, lastName, email;
     private Boolean active;
+
+    @ManyToOne
+    @JoinTable(name="user_organization",
+            inverseJoinColumns = { @JoinColumn(name="user_id", referencedColumnName="id", nullable=true, updatable=true) },
+            joinColumns = { @JoinColumn(name="org_id", referencedColumnName="id", nullable=true, updatable=true)})
+    private Organization organization;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "owner", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<UserDevice> devices = new ArrayList<UserDevice>();
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private UserSettings settings;
 
     private transient List<Roles> roles = new ArrayList<Roles>();
 

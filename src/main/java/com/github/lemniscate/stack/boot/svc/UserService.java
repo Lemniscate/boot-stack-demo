@@ -1,7 +1,7 @@
 package com.github.lemniscate.stack.boot.svc;
 
 
-import com.github.lemniscate.lib.sra.repo.ResourceRepository;
+import com.github.lemniscate.lib.sra.repo.ApiResourceRepository;
 import com.github.lemniscate.stack.boot.model.UserAccount;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +21,7 @@ import java.util.List;
 public class UserService implements UserDetailsService, Serializable {
 
     @Inject
-    private ResourceRepository<UserAccount, Long> repo;
+    private ApiResourceRepository<UserAccount, Long> repo;
 
     public UserAccount save(UserAccount user){
         return repo.save(user);

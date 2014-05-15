@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.github.lemniscate.lib.sra.annotation.ApiResourceBeanPostProcessor;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.springframework.aop.interceptor.ExposeInvocationInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -13,18 +12,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.data.web.SortHandlerMethodArgumentResolver;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @EnableWebMvc
 @ComponentScan
@@ -97,6 +96,19 @@ public class WebConfig extends WebMvcConfigurationSupport {
 		configurer.enable();
 	}
 
+    @Override
+    protected void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        configurer.defaultContentType(MediaType.APPLICATION_JSON);
+        configurer.ignoreAcceptHeader(true);
+    }
+
+    @Override
+    protected Map<String, MediaType> getDefaultMediaTypes() {
+        return new HashMap<String, MediaType>(){{
+            put("json", MediaType.APPLICATION_JSON);
+        }};
+    }
+
     // Add Jackson Support for returning JSON
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -115,16 +127,11 @@ public class WebConfig extends WebMvcConfigurationSupport {
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-
         // formatting
         mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ"));
         converter.setObjectMapper(mapper);
+        converter.setPrettyPrint(true);
         return converter;
     }
 
-    // Add our API processor TODO: create a autoconfiguration
-    @Bean
-    public ApiResourceBeanPostProcessor apiResourceBeanPostProcessor(){
-        return new ApiResourceBeanPostProcessor("com.github.lemniscate");
-    }
 }
