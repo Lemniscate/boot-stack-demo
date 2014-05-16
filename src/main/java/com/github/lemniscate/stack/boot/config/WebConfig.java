@@ -126,7 +126,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-
+        
         // formatting
         mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ"));
         converter.setObjectMapper(mapper);

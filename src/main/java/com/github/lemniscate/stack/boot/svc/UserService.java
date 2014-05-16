@@ -1,7 +1,7 @@
 package com.github.lemniscate.stack.boot.svc;
 
 
-import com.github.lemniscate.lib.sra.repo.ApiResourceRepository;
+import com.github.lemniscate.lib.rest.repo.ApiResourceRepository;
 import com.github.lemniscate.stack.boot.model.UserAccount;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -97,7 +97,7 @@
         <dependency>
             <groupId>com.github.lemniscate.lib</groupId>
             <artifactId>spring-rest-api</artifactId>
-            <version>0.1.1-SNAPSHOT</version>
+            <version>0.1.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

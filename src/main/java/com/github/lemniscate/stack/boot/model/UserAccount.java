@@ -1,7 +1,7 @@
 package com.github.lemniscate.stack.boot.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.github.lemniscate.lib.sra.annotation.ApiResource;
+import com.github.lemniscate.lib.rest.annotation.ApiResource;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
