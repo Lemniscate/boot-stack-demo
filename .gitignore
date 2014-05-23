@@ -1,4 +1,11 @@
+.classpath
+.project
+.settings
+.springBeans
 .idea
 .metadata
 *.iml
 target
+src/main/webapp/WEB-INF/client/public
+node_modules
+bower_components

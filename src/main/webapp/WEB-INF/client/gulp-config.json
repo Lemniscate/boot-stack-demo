@@ -1,0 +1,23 @@
+{
+    "libs" : [    
+          "bower_components/jquery/dist/jquery.js"
+        , "bower_components/jquery-ui/ui/jquery-ui.js"
+        , "bower_components/angular/angular.js"
+        , "bower_components/angular-resource/angular-resource.js"
+        , "bower_components/angular-ui-router/release/angular-ui-router.min.js"
+        , "bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"
+        , "bower_components/angular-ui-calendar/src/calendar.js"
+        , "bower_components/fullcalendar/fullcalendar.js"
+        , "bower_components/fullcalendar/gcal.js"
+        , "bower_components/angular-ui-map/ui-map.min.js"
+        , "bower_components/angular-ui-utils/ui-utils.min.js"
+        , "bower_components/ngprogress/build/ngProgress.min.js"
+        , "bower_components/momentjs/moment.js"
+	    , "bower_components/underscore/underscore.js"
+    ],
+
+    "libsCss" : [     
+          "bower_components/fullcalendar/fullcalendar.css"
+        , "bower_components/font-awesome-bower/css/font-awesome.css"
+    ]
+}

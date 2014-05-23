@@ -1,0 +1,8 @@
+body{
+    padding-top: 50px;
+}
+#ngProgress-container{
+    position: absolute;
+    top: 50px;
+    width: 100%;
+}

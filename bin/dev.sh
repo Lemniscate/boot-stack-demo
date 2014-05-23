@@ -1,0 +1,1 @@
+cd src/main/webapp/WEB-INF/client && gulp prepare && gulp dev

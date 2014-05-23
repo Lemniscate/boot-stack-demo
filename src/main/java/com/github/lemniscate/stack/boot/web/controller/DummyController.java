@@ -3,6 +3,7 @@ package com.github.lemniscate.stack.boot.web.controller;
 import com.github.lemniscate.stack.boot.model.UserAccount;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,6 +23,11 @@ public class DummyController {
 
     @PersistenceContext
     private EntityManager em;
+
+    @RequestMapping("/")
+    public String getHome(Model model){
+        return "app";
+    }
 
     @RequestMapping("/test")
     public @ResponseBody UserAccount person() {
