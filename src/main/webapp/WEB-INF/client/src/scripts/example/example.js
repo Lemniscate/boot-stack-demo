@@ -7,11 +7,11 @@ angular.module( window.globals.module + '.example', [
         $stateProvider
             .state('example',{
                 url: '/example',
-                templateUrl: window.globals.jsBaseUrl + '/example/example.tpl.html',
+                templateUrl: window.globals.jsBaseUrl + 'example/example.tpl.html',
                 controller: 'ExampleController'
             })
         ;
     })
     .controller('ExampleController', function($scope, $timeout, $compile, $templateCache, BASE_URL){
-        console.log('We made it!', BASE_URL);
+        console.log( 'Controller loaded...' );
     });

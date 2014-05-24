@@ -18,13 +18,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="${_baseUrl}/static/css/bootstrap.css"/>
   <link rel="stylesheet" href="${_baseUrl}/static/css/bootstrap-theme.css"/>
+  <c:if test="${DEPLOYED}">
+      <link rel="stylesheet" href="${_baseUrl}/ar/css/all.css"/>
+      <link rel="stylesheet" href="${_baseUrl}/ar/css/libs.css"/>
+  </c:if>
   <%--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>--%>
   <script>
       window.globals = window.globals || {};
       window.globals.module = 'app';
       window.globals.baseUrl = '${_baseUrl}';
-      // TODO handle deploy change here
-      window.globals.jsBaseUrl = '${_baseUrl}/src/src/scripts';
+      window.globals.deployed = ${DEPLOYED};
+
+      //<c:choose> <c:when test="${DEPLOYED}">
+            window.globals.jsBaseUrl = '';
+      //</c:when><c:otherwise>
+            window.globals.jsBaseUrl = '${_baseUrl}/src/src/scripts/';
+      //</c:otherwise></c:choose>
   </script>
   <jsp:invoke fragment="head"/>
 </head>

@@ -1,10 +1,16 @@
-var mainApp = angular.module(window.globals.module, [
-          'ngProgress'
-        , 'ui.bootstrap'
-        , 'ui.router'
+var deps = [
+      'ngProgress'
+    , 'ui.bootstrap'
+    , 'ui.router'
 
-        , window.globals.module + '.example'
-    ])
+    , window.globals.module + '.example'
+];
+
+if( window.globals.deployed ){
+    deps.push( window.globals.module + '.templates' )
+}
+
+var mainApp = angular.module(window.globals.module, deps)
     .constant('BASE_URL', window.globals.jsBaseUrl);
 
 mainApp.run(function($rootScope, $state, $stateParams, $timeout, ngProgress){
