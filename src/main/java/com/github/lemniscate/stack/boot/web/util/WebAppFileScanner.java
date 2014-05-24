@@ -51,7 +51,7 @@ public class WebAppFileScanner {
     }
 
     public List<String> loadGulpConfigCss() throws IOException {
-        List<String> result = loadGulpConfigElement("libs");
+        List<String> result = loadGulpConfigElement("libsCss");
         List<String> srcs = findRelativeFilePaths("/WEB-INF/client/src/", "*.css");
         for(String src : srcs){
             if( !src.startsWith("libs/") ){

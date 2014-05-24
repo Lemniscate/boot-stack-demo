@@ -5,6 +5,7 @@
     <jsp:attribute name="head">
         <c:forEach items="${CSS_RESOURCES}" var="css">
             <link rel="stylesheet" href="${_baseUrl}/src/${css}"/>
+            <!-- test -->
         </c:forEach>
     </jsp:attribute>
     <jsp:attribute name="footer">

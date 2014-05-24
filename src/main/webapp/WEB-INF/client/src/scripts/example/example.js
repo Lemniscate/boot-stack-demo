@@ -2,6 +2,8 @@ angular.module( window.globals.module + '.example', [
           window.globals.module
         , 'ui.calendar'
         , 'ui.map'
+
+        , window.globals.module + '.ApiResource'
     ])
     .config(function($stateProvider){
         $stateProvider
@@ -12,6 +14,10 @@ angular.module( window.globals.module + '.example', [
             })
         ;
     })
-    .controller('ExampleController', function($scope, $timeout, $compile, $templateCache, BASE_URL){
+    .controller('ExampleController', function($scope, User){
         console.log( 'Controller loaded...' );
+        window.test = {
+            scope: $scope,
+            User: User
+        }
     });

@@ -29,7 +29,14 @@
       window.globals.baseUrl = '${_baseUrl}';
       window.globals.deployed = ${DEPLOYED};
 
-      //<c:choose> <c:when test="${DEPLOYED}">
+      <c:if test="${_csrf != null}">
+          window.globals.csrf = {
+              token: '${_csrf.token}',
+              header: '${_csrf.headerName}'
+          };
+      </c:if>
+
+    //<c:choose> <c:when test="${DEPLOYED}">
             window.globals.jsBaseUrl = '';
       //</c:when><c:otherwise>
             window.globals.jsBaseUrl = '${_baseUrl}/src/src/scripts/';
@@ -56,16 +63,7 @@
       </sec:authorize>
     </div>
   </nav>
-    <jsp:doBody />    
-    <script>
-      window.baseUrl =  '${_baseUrl}';
-      <c:if test="${_csrf != null}">
-      window.csrf = {
-          token: '${_csrf.token}',
-          header: '${_csrf.headerName}'
-      };
-      </c:if>      
-    </script>    
+    <jsp:doBody />
     <jsp:invoke fragment="footer"/>
 </body>
 </html>
