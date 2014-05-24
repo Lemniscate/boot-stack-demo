@@ -16,6 +16,7 @@ var module = angular.module(window.globals.module + '.ApiResource', []);
         });
     })
 
+
     /**
      *  Provides a uniform way to access HATEOAS resources. When making a request, objects are immediately returned even
      *  though the data isn't populated yet. In many UI cases, these objects can be bound to and will simply update
@@ -25,15 +26,18 @@ var module = angular.module(window.globals.module + '.ApiResource', []);
      *  TODO more documentation & examples
      *
      */
-    .factory('ApiResource', function($http){
+    .factory('ApiResource', function($http, $q){
 
         // Simple helper function to extract the data from $http's wrapper payload
         function unwrap(result){
             return result.data;
         }
 
+        // ************************************************************
+
         // Represents an actual resource returned from a webservice
         function ApiResource(url, data){
+            this.$url = url;
             if( data ){
                 this.$resolve(data);
             }else{
@@ -47,21 +51,54 @@ var module = angular.module(window.globals.module + '.ApiResource', []);
             }
         }
 
+        var arp = ApiResource.prototype;
+
         // Called when the data actually comes back
-        ApiResource.prototype.$resolve = function(data){
+        arp.$resolve = function(data){
+            // copy will delete properties, so reset any special variables
+            var url = this.$url;
+
             angular.copy(data, this);
             this.$resolved = true;
+
+            // restore cached properties
+            this.$url = url;
         }
 
         // Traverses this Resource's links and pulls in entities
-        ApiResource.prototype.$populate = function(){
-            var that = this;
+        arp.$populate = function(){
+            this.$resolved = false;
             var links = _.reject(this.links, function(){return this.rel == 'self'; });
+            var promises = [];
             // TODO add links filtering if params provided
             for(var i in links){
-                that[links[i].rel] = new ApiResource( links[i].href );
+                this[links[i].rel] = new ApiResource( links[i].href );
+                promises.push( this[links[i].rel].$promise );
             };
+
+            var that = this;
+            this.$promise = $q.all(promises).then(function(){
+                that.$resolved = true;
+            });
+
+            return this;
         }
+
+        arp.$save = function(){
+            var that = this;
+            this.$resolved = false;
+            var payload = angular.copy(this);
+            delete payload.links;
+            delete payload.id;
+            this.$promise = $http[this.id ? 'put' : 'post'](this.$url, payload)
+                .then(unwrap)
+                .then(function(data){
+                    that.$resolve(data);
+                });
+            return this;
+        }
+
+        // ************************************************************
 
         // Represents collections of resources. Extends array
         function ApiResources(url){
@@ -77,6 +114,7 @@ var module = angular.module(window.globals.module + '.ApiResource', []);
                             console.log('WARNING: Unexpected result on "self" link for ', el);
                             continue;
                         }
+                        delete el.links;
                         var r = new ApiResource(links[0].href, el);
                         that.push(r);
                     }
@@ -87,22 +125,30 @@ var module = angular.module(window.globals.module + '.ApiResource', []);
         }
         ApiResources.prototype = Array.prototype;
 
+        // ************************************************************
 
         // Service object; represents an endpoint
-        function ApiResource(url){
+        function ApiResourceEndpoint(url){
             this.url = url;
         }
-        var p = ApiResource.prototype;
+        var p = ApiResourceEndpoint.prototype;
+        p.ApiResource = ApiResource;
         p.findOne = function(id){
             return new ApiResource( this.url + '/' + id );
         };
         p.findAll = function(){
             return new ApiResources( this.url );
         };
+        p.create = function(data){
+            return new ApiResource( this.url, data );
+        };
         // TODO add query, etc
-        return ApiResource;
-    })
 
+
+        // ************************************************************
+
+        return ApiResourceEndpoint;
+    })
     .factory('User', function(ApiResource) {
         return new ApiResource('/api/users');
     })
