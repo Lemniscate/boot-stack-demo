@@ -3,13 +3,9 @@
 
 <select multiple="true" style="width: 300px; height: 300px;">
     <optgroup label="Users">
-        <option>Test 1</option>
-        <option>Test 1</option>
-        <option>Test 1</option>
+        <option ng-repeat="user in view.users">{{user.firstName}} {{user.lastName}}</option>
     </optgroup>
     <optgroup label="Organizations">
-        <option>Test 1</option>
-        <option>Test 1</option>
-        <option>Test 1</option>
+        <option ng-repeat="org in view.organizations">{{org.name}}</option>
     </optgroup>
 </select>

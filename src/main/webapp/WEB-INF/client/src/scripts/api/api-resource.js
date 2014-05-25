@@ -1,4 +1,6 @@
-var module = angular.module(window.globals.module + '.ApiResource', []);
+var module = angular.module('apiResource', []);
+
+    // TODO pop these onto the stacks in an unobtrusive manner
     module.config(function($httpProvider){
         $httpProvider.defaults.transformRequest.push(function(data, h) {
             var headers = h();
@@ -90,9 +92,13 @@ var module = angular.module(window.globals.module + '.ApiResource', []);
             var payload = angular.copy(this);
             delete payload.links;
             delete payload.id;
+
             this.$promise = $http[this.id ? 'put' : 'post'](this.$url, payload)
                 .then(unwrap)
                 .then(function(data){
+                    if( !that.id ){
+                        that.$url = that.$url + '/' + data.id;
+                    }
                     that.$resolve(data);
                 });
             return this;
@@ -148,8 +154,5 @@ var module = angular.module(window.globals.module + '.ApiResource', []);
         // ************************************************************
 
         return ApiResourceEndpoint;
-    })
-    .factory('User', function(ApiResource) {
-        return new ApiResource('/api/users');
     })
 ;

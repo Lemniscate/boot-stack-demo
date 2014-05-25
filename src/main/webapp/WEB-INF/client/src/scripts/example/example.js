@@ -3,7 +3,7 @@ angular.module( window.globals.module + '.example', [
         , 'ui.calendar'
         , 'ui.map'
 
-        , window.globals.module + '.ApiResource'
+        , window.globals.module + '.models'
     ])
     .config(function($stateProvider){
         $stateProvider
@@ -14,10 +14,13 @@ angular.module( window.globals.module + '.example', [
             })
         ;
     })
-    .controller('ExampleController', function($scope, User){
+    .controller('ExampleController', function($scope, Users, Organizations){
         console.log( 'Controller loaded...' );
-        window.test = {
-            scope: $scope,
-            User: User
-        }
+
+        $scope.view = {
+              users: Users.findAll()
+            , organizations: Organizations.findAll()
+        };
+
+        window.test = arguments;
     });
