@@ -2,7 +2,10 @@ package com.github.lemniscate.stack.boot.svc;
 
 
 import com.github.lemniscate.lib.rest.repo.ApiResourceRepository;
+import com.github.lemniscate.lib.rest.svc.AbstractApiResourceService;
 import com.github.lemniscate.stack.boot.model.UserAccount;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.MultiValueMap;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -18,18 +22,18 @@ import java.util.List;
 
 @Component
 @Transactional(propagation= Propagation.MANDATORY)
-public class UserService implements UserDetailsService, Serializable {
+public class UserService extends AbstractApiResourceService<UserAccount, Long> implements UserDetailsService, Serializable {
 
     @Inject
     private ApiResourceRepository<UserAccount, Long> repo;
 
-    public UserAccount save(UserAccount user){
-        return repo.save(user);
+    @Override
+    public Page<UserAccount> query(MultiValueMap<String, String> params, Pageable pageable) {
+        return super.query(params, pageable);
     }
 
-    public List<UserAccount> findAll() {
-        List<UserAccount> users = repo.findAll();
-        return users;
+    public UserAccount save(UserAccount user){
+        return repo.save(user);
     }
 
     /**
@@ -46,22 +50,9 @@ public class UserService implements UserDetailsService, Serializable {
         return user;
     }
 
-    public UserAccount getCurrentUser(){
-        UserAccount user = null;
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if( auth != null ){
-            Object p = auth.getPrincipal();
-            if( p != null && p instanceof UserAccount ){
-                user = (UserAccount) p;
-            }
-        }
-        return user;
+    @Override
+    public void deleteOne(Long id) {
+        throw new UnsupportedOperationException("Cannot delete users. Instead set them to inactive");
     }
-
-    public boolean isLoggedIn(){
-        return getCurrentUser() != null;
-    }
-
 }
 
