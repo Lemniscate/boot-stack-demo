@@ -1,7 +1,7 @@
 package com.github.lemniscate.stack.boot.web.assembler;
 
-import com.github.lemniscate.lib.rest.controller.ApiResourceController;
-import com.github.lemniscate.lib.rest.mapping.ApiResourceAssembler;
+import com.github.lemniscate.lib.tiered.controller.ApiResourceController;
+import com.github.lemniscate.lib.tiered.mapping.ApiResourceAssembler;
 import com.github.lemniscate.stack.boot.model.Organization;
 import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Component;

@@ -1,9 +1,9 @@
 package com.github.lemniscate.stack.boot.web.assembler;
 
-import com.github.lemniscate.lib.rest.controller.ApiResourceNestedCollectionController;
-import com.github.lemniscate.lib.rest.controller.ApiResourceNestedPropertyController;
-import com.github.lemniscate.lib.rest.mapping.ApiResourceAssembler;
-import com.github.lemniscate.lib.rest.mapping.ApiResourceLinkBuilderFactory;
+import com.github.lemniscate.lib.tiered.controller.ApiResourceNestedCollectionController;
+import com.github.lemniscate.lib.tiered.controller.ApiResourceNestedPropertyController;
+import com.github.lemniscate.lib.tiered.mapping.ApiResourceAssembler;
+import com.github.lemniscate.lib.tiered.mapping.ApiResourceLinkBuilderFactory;
 import com.github.lemniscate.stack.boot.model.UserAccount;
 import com.github.lemniscate.stack.boot.model.UserDevice;
 import com.github.lemniscate.stack.boot.model.UserSettings;

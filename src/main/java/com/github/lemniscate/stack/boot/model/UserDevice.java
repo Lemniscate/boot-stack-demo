@@ -1,8 +1,8 @@
 package com.github.lemniscate.stack.boot.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.github.lemniscate.lib.rest.annotation.ApiNestedResource;
-import com.github.lemniscate.lib.rest.repo.Model;
+import com.github.lemniscate.lib.tiered.annotation.ApiNestedResource;
+import com.github.lemniscate.lib.tiered.repo.Model;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

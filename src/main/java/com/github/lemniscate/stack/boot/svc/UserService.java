@@ -1,13 +1,11 @@
 package com.github.lemniscate.stack.boot.svc;
 
 
-import com.github.lemniscate.lib.rest.repo.ApiResourceRepository;
-import com.github.lemniscate.lib.rest.svc.AbstractApiResourceService;
+import com.github.lemniscate.lib.tiered.repo.ApiResourceRepository;
+import com.github.lemniscate.lib.tiered.svc.ApiResourceService;
 import com.github.lemniscate.stack.boot.model.UserAccount;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
@@ -17,12 +15,11 @@ import org.springframework.util.MultiValueMap;
 
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.List;
 
 
 @Component
 @Transactional(propagation= Propagation.MANDATORY)
-public class UserService extends AbstractApiResourceService<UserAccount, Long> implements UserDetailsService, Serializable {
+public class UserService extends ApiResourceService<UserAccount, Long> implements UserDetailsService, Serializable {
 
     @Inject
     private ApiResourceRepository<UserAccount, Long> repo;
