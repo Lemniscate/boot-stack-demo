@@ -17,10 +17,10 @@ import java.util.Collection;
 public class UserAccountApiResourceAssembler extends ApiResourceAssembler<UserAccount, Long, UserAccount> {
 
     @Inject
-    private ApiResourceNestedCollectionController<UserDevice, Long, UserDevice, UserAccount> devicesController;
+    private ApiResourceNestedCollectionController<UserDevice, Long, UserDevice, UserAccount, Long> devicesController;
 
     @Inject
-    private ApiResourceNestedPropertyController<UserSettings, Long, UserSettings, UserAccount> settingsController;
+    private ApiResourceNestedPropertyController<UserSettings, Long, UserSettings, UserAccount, Long> settingsController;
 
     @Inject
     private ApiResourceLinkBuilderFactory arLinkBuilder;

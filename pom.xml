@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.0.2.RELEASE</version>
+        <version>1.1.3.RELEASE</version>
     </parent>
 
     <name>boot-stack</name>
@@ -22,12 +22,17 @@
         <!--<java.version>1.7</java.version>-->
         <start-class>com.github.lemniscate.stack.DemoApplication</start-class>
         <m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
-        <spring.security.version>3.0.2.RELEASE</spring.security.version>
+        <tomcat.version>8.0.8</tomcat.version>
     </properties>
 
     <dependencies>
 
         <!-- Boot: Core Modules -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>1.1.3.RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -39,7 +44,6 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
-            <version>${spring.security.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -56,6 +60,10 @@
             <artifactId>tomcat-embed-jasper</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+        </dependency>
 
         <!-- Boot: SpringData -->
         <dependency>
@@ -67,7 +75,7 @@
         <dependency>
             <groupId>org.springframework.hateoas</groupId>
             <artifactId>spring-hateoas</artifactId>
-            <version>0.9.0.RELEASE</version>
+            <version>0.12.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.plugin</groupId>
@@ -98,11 +106,6 @@
             <groupId>com.github.lemniscate.lib</groupId>
             <artifactId>spring-tiered</artifactId>
             <version>0.1.3-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot</artifactId>
-            <version>1.0.2.RELEASE</version>
         </dependency>
 
         <!-- AOP -->
@@ -189,8 +192,8 @@
 
     <repositories>
         <repository>
-            <id>local</id>
-            <name>local</name>
+            <id>project</id>
+            <name>project</name>
             <releases>
                 <enabled>true</enabled>
                 <checksumPolicy>ignore</checksumPolicy>

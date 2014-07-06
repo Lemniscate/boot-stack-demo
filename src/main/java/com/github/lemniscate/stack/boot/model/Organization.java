@@ -10,7 +10,6 @@ import org.springframework.hateoas.Identifiable;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
 @Entity
 @ApiResource
 @Getter @Setter
@@ -27,3 +26,4 @@ public class Organization implements Identifiable<Long>{
     private List<UserAccount> users = new ArrayList<UserAccount>();
 
 }
+

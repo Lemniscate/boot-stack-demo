@@ -1,10 +1,8 @@
 package com.github.lemniscate.stack.boot.config;
 
-import com.github.lemniscate.stack.boot.svc.UserService;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,10 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.inject.Inject;
 
-/**
- * @Author dave 2/8/14 11:17 AM
- */
-@Configuration
+
+//@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Inject

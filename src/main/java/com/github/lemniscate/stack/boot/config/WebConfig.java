@@ -4,47 +4,36 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.github.lemniscate.stack.boot.web.interceptor.AppEnvironmentInterceptor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.data.web.SortHandlerMethodArgumentResolver;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.ResourceHttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.context.ServletContextAware;
+import org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter;
+import org.springframework.http.converter.xml.SourceHttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
+import javax.xml.transform.Source;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-@ComponentScan
 @Configuration
-public class WebConfig extends WebMvcConfigurationSupport {
+public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Inject
     private Environment environment;
-    private ServletContext servletContext;
 
-    @Override
-    public void setServletContext(ServletContext servletContext) {
-        super.setServletContext(servletContext);
-        this.servletContext = servletContext;
-    }
 
-    @Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		// registry.addViewController("/").setViewName("home");
-	}
 
-//
 //    // Add pass-through routes for static resource folders
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -68,7 +57,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addWebRequestInterceptor(new AppEnvironmentInterceptor(servletContext, environment));
+//        registry.addWebRequestInterceptor(new AppEnvironmentInterceptor(servletContext, environment));
 //        registry.addWebRequestInterceptor(profileInterceptor);
 //        registry.addInterceptor(metricInterceptor);
     }
@@ -94,32 +83,28 @@ public class WebConfig extends WebMvcConfigurationSupport {
 		return viewResolver;
 	}
 
-	@Bean // Only used when running in embedded servlet
-	public DispatcherServlet dispatcherServlet() {
-		return new DispatcherServlet();
-	}
+//	@Bean // Only used when running in embedded servlet
+//	public DispatcherServlet dispatcherServlet() {
+//		return new DispatcherServlet();
+//	}
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
 
-//    @Override
-//    protected void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-//        configurer.defaultContentType(MediaType.APPLICATION_JSON);
-//        configurer.ignoreAcceptHeader(true);
-//    }
-//
-//    @Override
-//    protected Map<String, MediaType> getDefaultMediaTypes() {
-//        return new HashMap<String, MediaType>(){{
-//            put("json", MediaType.APPLICATION_JSON);
-//        }};
-//    }
-
-    // Add Jackson Support for returning JSON
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        StringHttpMessageConverter stringConverter = new StringHttpMessageConverter();
+        stringConverter.setWriteAcceptCharset(false);
+
+        converters.add(new ByteArrayHttpMessageConverter());
+        converters.add(stringConverter);
+        converters.add(new ResourceHttpMessageConverter());
+        converters.add(new SourceHttpMessageConverter<Source>());
+        converters.add(new AllEncompassingFormHttpMessageConverter());
+
+        // Add Jackson Support for returning JSON
         converters.add(jackson());
     }
 

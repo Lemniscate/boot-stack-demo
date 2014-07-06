@@ -1,13 +1,17 @@
 package com.github.lemniscate.stack.boot.config;
 
 import com.github.lemniscate.stack.boot.DemoApplication;
+import org.hibernate.SessionFactory;
 import org.hibernate.cfg.ImprovedNamingStrategy;
 import org.hibernate.dialect.HSQLDialect;
+import org.hibernate.jpa.HibernateEntityManagerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -33,6 +37,13 @@ public class DataConfig {
     }
 
     @Bean
+    public OpenSessionInViewInterceptor openSessionInViewInterceptor(SessionFactory sessionFactory){
+        OpenSessionInViewInterceptor result = new OpenSessionInViewInterceptor();
+        result.setSessionFactory(sessionFactory);
+        return result;
+    }
+
+    @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter vendorAdapter){
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
@@ -40,6 +51,11 @@ public class DataConfig {
         factory.setDataSource(dataSource);
         factory.setJpaProperties(getJpaProperties());
         return factory;
+    }
+
+    @Bean
+    public SessionFactory sessionFactory(HibernateEntityManagerFactory emf){
+        return emf.getSessionFactory();
     }
 
     @Bean
@@ -54,6 +70,7 @@ public class DataConfig {
     private Properties getJpaProperties() {
         Properties props = new Properties();
         props.put("hibernate.ejb.naming_strategy", ImprovedNamingStrategy.class.getName());
+        props.put("hibernate.enable_lazy_load_no_trans", "true");
         props.put("jadira.usertype.autoRegisterUserTypes", "true");
         return props;
     }
@@ -69,4 +86,10 @@ public class DataConfig {
     public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource) {
         return new NamedParameterJdbcTemplate(dataSource);
     }
+
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+        return new PersistenceExceptionTranslationPostProcessor();
+    }
+
 }
