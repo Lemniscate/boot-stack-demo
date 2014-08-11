@@ -1,6 +1,6 @@
 package com.github.lemniscate.stack.boot;
 
-import com.github.lemniscate.lib.tiered.annotation.EnableApiResources;
+import com.github.lemniscate.spring.crud.annotation.EnableApiResources;
 import com.github.lemniscate.stack.boot.config.TomcatConfig;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;

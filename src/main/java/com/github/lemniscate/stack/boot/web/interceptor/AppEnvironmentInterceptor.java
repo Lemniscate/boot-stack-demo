@@ -2,7 +2,6 @@ package com.github.lemniscate.stack.boot.web.interceptor;
 
 import com.github.lemniscate.stack.boot.web.util.WebAppFileScanner;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.WebRequest;

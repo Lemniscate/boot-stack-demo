@@ -1,8 +1,8 @@
 package com.github.lemniscate.stack.boot.svc;
 
 
-import com.github.lemniscate.lib.tiered.repo.ApiResourceRepository;
-import com.github.lemniscate.lib.tiered.svc.ApiResourceService;
+import com.github.lemniscate.spring.crud.repo.ApiResourceRepository;
+import com.github.lemniscate.spring.crud.svc.ApiResourceServiceImpl;
 import com.github.lemniscate.stack.boot.model.UserAccount;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,10 +19,10 @@ import java.io.Serializable;
 
 @Component
 @Transactional(propagation= Propagation.MANDATORY)
-public class UserService extends ApiResourceService<UserAccount, Long> implements UserDetailsService, Serializable {
+public class UserService extends ApiResourceServiceImpl<Long, UserAccount, UserAccount, UserAccount, UserAccount> implements UserDetailsService, Serializable {
 
     @Inject
-    private ApiResourceRepository<UserAccount, Long> repo;
+    private ApiResourceRepository<Long, UserAccount> repo;
 
     @Override
     public Page<UserAccount> query(MultiValueMap<String, String> params, Pageable pageable) {
@@ -48,7 +48,7 @@ public class UserService extends ApiResourceService<UserAccount, Long> implement
     }
 
     @Override
-    public void deleteOne(Long id) {
+    public void delete(Long id) {
         throw new UnsupportedOperationException("Cannot delete users. Instead set them to inactive");
     }
 }

@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.ServletContextResource;
 
 import javax.servlet.ServletContext;

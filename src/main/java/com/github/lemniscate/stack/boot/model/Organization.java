@@ -1,7 +1,7 @@
 package com.github.lemniscate.stack.boot.model;
 
 
-import com.github.lemniscate.lib.tiered.annotation.ApiResource;
+import com.github.lemniscate.spring.crud.annotation.ApiResource;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,8 +1,8 @@
 package com.github.lemniscate.stack.boot.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.github.lemniscate.lib.tiered.annotation.ApiNestedResource;
-import com.github.lemniscate.lib.tiered.repo.Model;
+import com.github.lemniscate.spring.crud.annotation.ApiResource;
+import com.github.lemniscate.spring.crud.model.Model;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="settings")
-@ApiNestedResource(path = "settings", parentProperty = "owner")
+@ApiResource
 @Getter @Setter
 public class UserSettings implements Model<Long> {
 
@@ -26,6 +26,5 @@ public class UserSettings implements Model<Long> {
     @OneToOne
     @PrimaryKeyJoinColumn
     private UserAccount owner;
-
 
 }

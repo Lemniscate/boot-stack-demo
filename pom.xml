@@ -103,9 +103,9 @@
 
         <!-- RestApi framework -->
         <dependency>
-            <groupId>com.github.lemniscate.lib</groupId>
-            <artifactId>spring-tiered</artifactId>
-            <version>0.1.3-SNAPSHOT</version>
+            <groupId>com.github.lemniscate.spring</groupId>
+            <artifactId>spring-crud</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
         </dependency>
 
         <!-- AOP -->
